@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setu 🎓 — Maharashtra DSE College Predictor 2025–26</title>
+<meta name="description" content="A free, independent tool to predict your Direct Second Year Engineering (DSE) admission chances across Maharashtra colleges, based on CAP Round I provisional cutoffs, AY 2025–26. Made by a diploma student, for diploma students.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="styles/components.css">
+<link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div class="topbar">
+  <div class="container">
+    <span><span class="topbar-emoji" aria-hidden="true">✨</span> Free &amp; independent — built by a diploma student, for diploma students &middot; not affiliated with any government body <span class="topbar-emoji" aria-hidden="true">✨</span></span>
+  </div>
+</div>
+
+<header class="brandbar">
+  <div class="container">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="brandGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7c3aed"/>
+            <stop offset="55%" stop-color="#ec4899"/>
+            <stop offset="100%" stop-color="#f97316"/>
+          </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="38" height="38" rx="12" fill="url(#brandGrad)"/>
+        <path d="M9 26L20 10L31 26" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 26h12" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <div class="brand-name">Setu 🎓</div>
+        <div class="brand-sub">DSE Lateral Entry Admission Helper</div>
+      </div>
+    </div>
+    <nav aria-label="About">
+      <span class="badge">🙋 Made by mdsaif, for students like you</span>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-frame">
+        <div class="eyebrow-row">
+          <span class="badge"><span class="dot" aria-hidden="true"></span>CAP Round I Provisional Cutoffs</span>
+          <span class="badge mono">📅 Last Updated: 05 Aug 2025</span>
+        </div>
+        <h1>🎓 Maharashtra DSE College Predictor 2025–26</h1>
+        <p class="hero-sub">Wondering "kahaan number lagega"? 🤔 Enter your diploma percentage and category to instantly see which colleges and branches you're likely eligible for — based on real CAP Round I cutoffs, not guesswork. ✅</p>
+        <p class="hero-note">📊 Based on Maharashtra CAP Round I provisional DSE cutoffs &middot; <strong id="hero-college-count">347</strong> colleges &middot; <strong id="hero-course-count">2045</strong> course offerings indexed. This is an independent student project — not run by any government office.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="predict-heading">
+    <div class="container">
+      <div class="section-title">
+        <span class="index mono">01</span>
+        <h2 id="predict-heading">🔮 Run a prediction</h2>
+      </div>
+
+      <form id="predict-form" class="card" style="padding:30px 28px 26px;" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-percentage">Diploma Percentage <span class="req">*</span></label>
+            <input class="input" type="number" id="f-percentage" name="percentage" min="0" max="100" step="0.01"
+                   placeholder="e.g. 88.50" inputmode="decimal" aria-describedby="f-percentage-error" required>
+            <span class="error-msg" id="f-percentage-error" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label for="f-gender">Gender</label>
+            <div class="select-wrap">
+              <select class="select" id="f-gender" name="gender">
+                <option value="general">General (Male)</option>
+                <option value="female">Female (Ladies)</option>
+              </select>
+            </div>
+            <span class="hint">Ladies seats fall back to the General category cutoff when not separately listed.</span>
+          </div>
+
+          <div class="field">
+            <label for="f-category">Reservation Category <span class="req">*</span></label>
+            <div class="select-wrap">
+              <select class="select" id="f-category" name="category" aria-describedby="f-category-error" required></select>
+            </div>
+            <span class="error-msg" id="f-category-error" role="alert"></span>
+          </div>
+
+          <div class="field">
+            <label id="f-region-label">Preferred Region(s) 📍</label>
+            <div class="chip-select" id="f-region-chips" role="group" aria-labelledby="f-region-label"></div>
+            <span class="hint">Leave all unselected to search every region of Maharashtra.</span>
+          </div>
+
+          <div class="field full">
+            <label for="f-branch">Branch 🛠️</label>
+            <div class="combobox" id="f-branch-combo">
+              <input class="input combobox-input" type="text" id="f-branch" role="combobox"
+                     aria-expanded="false" aria-controls="f-branch-list" aria-autocomplete="list"
+                     autocomplete="off" placeholder="Search a branch, e.g. Computer Science">
+              <button type="button" class="combobox-clear" id="f-branch-clear" hidden aria-label="Clear branch">&times;</button>
+              <ul class="combobox-list" id="f-branch-list" role="listbox" hidden></ul>
+            </div>
+            <span class="hint">Leave blank to include every branch.</span>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" id="btn-predict">🚀 Predict My Chances</button>
+          <button type="button" class="btn btn-ghost" id="btn-reset">↺ Reset</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="results-heading">
+    <div class="container">
+      <div class="section-title">
+        <span class="index mono">02</span>
+        <h2 id="results-heading">📊 Results</h2>
+      </div>
+
+      <div class="toolbar card" id="toolbar" hidden style="padding:14px 16px;">
+        <input class="input" type="search" id="result-search" placeholder="🔍 Search college or course in results" aria-label="Search results">
+        <div class="select-wrap">
+          <select class="select" id="sort-select" aria-label="Sort results">
+            <option value="chance">Best Chance First</option>
+            <option value="cutoff-high">Highest Cutoff</option>
+            <option value="cutoff-low">Lowest Cutoff</option>
+            <option value="college-az">College A-Z</option>
+            <option value="college-za">College Z-A</option>
+            <option value="region">Region</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select class="select" id="type-filter" aria-label="Filter by college type">
+            <option value="all">All College Types</option>
+            <option value="Government">Government</option>
+            <option value="Autonomous">Autonomous</option>
+            <option value="University Department">University Department</option>
+            <option value="Minority">Minority</option>
+            <option value="Un-Aided">Un-Aided</option>
+          </select>
+        </div>
+        <div class="select-wrap">
+          <select class="select" id="status-filter" aria-label="Filter by admission status">
+            <option value="all">All Status</option>
+            <option value="high">High Chance</option>
+            <option value="moderate">Moderate Chance</option>
+            <option value="low">Low Chance</option>
+          </select>
+        </div>
+        <div class="toolbar-spacer"></div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-share">🔗 Copy share link</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-export-csv">⬇️ Export CSV</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-export-xls">⬇️ Export Excel</button>
+      </div>
+      <p class="hint" id="share-note" role="status" aria-live="polite" style="min-height:16px;"></p>
+
+      <p class="results-meta" id="results-meta" hidden></p>
+
+      <div id="results-region" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="1" y="1" width="38" height="38" rx="12" fill="url(#brandGrad)"/>
+          <path d="M9 26L20 10L31 26" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M14 26h12" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+        </svg>
+        <span class="footer-brand-name">Setu 🎓</span>
+      </div>
+      <div class="footer-stats">
+        <div><strong id="footer-colleges">347</strong>Colleges</div>
+        <div><strong id="footer-branches">93</strong>Branches</div>
+        <div><strong id="footer-version">1.0.0</strong>Version</div>
+        <div><strong id="footer-updated">05 Aug 2025</strong>Last Updated</div>
+      </div>
+    </div>
+
+    <p class="disclaimer">⚠️ This is an independent, unofficial tool — not affiliated with the State CET Cell or any government body. It's based on Maharashtra CAP Round I provisional DSE cutoffs (AY 2025–26) and is meant purely to help diploma students get a quick, indicative idea. Predictions don't guarantee admission — always cross-check on the official CAP portal before making decisions. 🙏</p>
+
+    <hr class="footer-divider">
+
+    <div class="footer-credit">
+      <span class="made-with-love">Made with <span class="heart" aria-hidden="true">💜</span> by <span class="footer-name">mdsaif</span> — for diploma students chasing their dream college 🎯</span>
+      <div class="footer-social">
+        <a href="#" aria-label="GitHub" title="GitHub">🐙</a>
+        <a href="#" aria-label="Instagram" title="Instagram">📸</a>
+        <a href="#" aria-label="LinkedIn" title="LinkedIn">💼</a>
+        <a href="#" aria-label="Email" title="Email">✉️</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="data/cutoffs.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/predictor.js"></script>
+<script src="js/filters.js"></script>
+<script src="js/search.js"></script>
+<script src="js/export.js"></script>
+<script src="js/share.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
