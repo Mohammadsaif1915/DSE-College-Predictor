@@ -1,0 +1,128 @@
+/* =========================================================================
+   Setu — animations.css
+   Flashy but purposeful motion. Respects prefers-reduced-motion.
+   ========================================================================= */
+
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInSoft {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92) translateY(-4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-12deg); }
+  40% { transform: rotate(10deg); }
+  60% { transform: rotate(-6deg); }
+  80% { transform: rotate(4deg); }
+}
+
+@keyframes floatBlob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-14px, 18px) scale(1.08); }
+}
+
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+  50% { box-shadow: 0 0 0 5px rgba(22, 163, 74, 0); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.25); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.18); }
+  60% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-4px); }
+  40% { transform: translateX(4px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+@keyframes heroEnter {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in { animation: fadeIn 0.32s ease both; }
+.fade-in-soft { animation: fadeInSoft 0.25s ease both; }
+
+/* Page-load sequence: hero pieces cascade in once on load */
+.eyebrow-row, .hero h1, .hero .hero-sub, .hero .hero-note {
+  animation: heroEnter 0.6s cubic-bezier(.21,.9,.32,1) both;
+}
+.eyebrow-row { animation-delay: 0ms; }
+.hero h1 { animation-delay: 90ms; }
+.hero .hero-sub { animation-delay: 170ms; }
+.hero .hero-note { animation-delay: 250ms; }
+
+.results-table tbody tr,
+.result-card {
+  animation: fadeIn 0.3s ease both;
+}
+/* Stagger first ~12 rows for a pleasant cascade without delaying the rest */
+.results-table tbody tr:nth-child(1), .result-card:nth-child(1) { animation-delay: 0ms; }
+.results-table tbody tr:nth-child(2), .result-card:nth-child(2) { animation-delay: 25ms; }
+.results-table tbody tr:nth-child(3), .result-card:nth-child(3) { animation-delay: 50ms; }
+.results-table tbody tr:nth-child(4), .result-card:nth-child(4) { animation-delay: 75ms; }
+.results-table tbody tr:nth-child(5), .result-card:nth-child(5) { animation-delay: 100ms; }
+.results-table tbody tr:nth-child(6), .result-card:nth-child(6) { animation-delay: 125ms; }
+.results-table tbody tr:nth-child(7), .result-card:nth-child(7) { animation-delay: 150ms; }
+.results-table tbody tr:nth-child(8), .result-card:nth-child(8) { animation-delay: 175ms; }
+
+.stats-bar .stat-card {
+  animation: popIn 0.4s cubic-bezier(.34,1.56,.64,1) both;
+}
+.stats-bar .stat-card:nth-child(1) { animation-delay: 0ms; }
+.stats-bar .stat-card:nth-child(2) { animation-delay: 60ms; }
+.stats-bar .stat-card:nth-child(3) { animation-delay: 120ms; }
+.stats-bar .stat-card:nth-child(4) { animation-delay: 180ms; }
+
+.btn, .chip, .combobox-option, .status-pill, .stat-card, .card, .badge {
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.stat-card { transition: transform 0.2s cubic-bezier(.34,1.56,.64,1), box-shadow 0.2s ease; }
+.stat-card:hover { transform: translateY(-4px) scale(1.02); box-shadow: var(--shadow-raised); }
+
+.card:hover { box-shadow: var(--shadow-raised); }
+
+a, .results-table tbody tr { transition: background-color 0.15s ease; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
